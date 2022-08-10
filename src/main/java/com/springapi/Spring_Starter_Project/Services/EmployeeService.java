@@ -4,7 +4,7 @@ import com.springapi.Spring_Starter_Project.Entities.EmployeeInfo;
 
 import java.util.List;
 
-public interface Employee_Service {
+public interface EmployeeService {
     public List<EmployeeInfo> getEmployee();
     public EmployeeInfo getEmployeeDetails(int employeeId);
     public EmployeeInfo addEmployee(EmployeeInfo newDetails);

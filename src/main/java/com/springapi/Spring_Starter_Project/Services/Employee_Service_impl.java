@@ -1,6 +1,6 @@
 package com.springapi.Spring_Starter_Project.Services;
 
-import com.springapi.Spring_Starter_Project.Dao.empRecords;
+import com.springapi.Spring_Starter_Project.Repository.EmpRecords;
 import com.springapi.Spring_Starter_Project.Entities.EmployeeInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class Employee_Service_impl implements Employee_Service {
+public class Employee_Service_impl implements EmployeeService {
 
     @Autowired
-    public empRecords emprecords;
+    public EmpRecords emprecords;
 
     @Override
     public List<EmployeeInfo> getEmployee() {

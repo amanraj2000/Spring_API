@@ -3,6 +3,8 @@ package com.springapi.Spring_Starter_Project.Entities;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
+
+import static javax.persistence.GenerationType.AUTO;
 //
 //import static javax.persistence.GenerationType.IDENTITY;
 
@@ -10,7 +12,8 @@ import javax.persistence.*;
 @Table(name = "employeeRecords")
 public class EmployeeInfo {
     @Id
-    private int employeeId;
+    @GeneratedValue(strategy = AUTO)
+    private Integer employeeId;
     @Column(name = "firstName")
     private String fname;
     @Column(name = "lastName")

@@ -1,53 +1,52 @@
 package com.springapi.Spring_Starter_Project.Controller;
 
-import com.springapi.Spring_Starter_Project.Dao.empRecords;
 import com.springapi.Spring_Starter_Project.Entities.EmployeeInfo;
-import com.springapi.Spring_Starter_Project.Services.Employee_Service;
+import com.springapi.Spring_Starter_Project.Services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.GeneratedValue;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-        public class Employee {
+@RequestMapping("api/employee")
+public class Employee {
+    @Autowired
+    private EmployeeService employeesList;
 
-            @Autowired
-            public Employee_Service es;
+    @GetMapping("")
+    public String Home(){
+        return "Employee Directory";
+    }
+    // Returns the List of Employees
+    @GetMapping("/listOfAllEmployees")
+    public List<EmployeeInfo> getEmployee(){
+        return this.employeesList.getEmployee();
+    }
 
-            @GetMapping("/home")
-            public String Home(){
-                return "Welcome to the Directory!";
-            }
+    // Returns a particular employee
+    @GetMapping("/getOneEmployeeRecords/{employeeId}")
+    public EmployeeInfo getEmployeeDetail(@PathVariable int employeeId){
+        return this.employeesList.getEmployeeDetails(employeeId);
+    }
 
-          //     Returns the List of Employees
-            @GetMapping("/api/v1/employee")
-            public List<EmployeeInfo> getEmployee(){
-                        return this.es.getEmployee();
-            }
+    @PostMapping("/addNewEmployee")
+    public EmployeeInfo addNewEmployee(@RequestBody EmployeeInfo newDetails){
+        return this.employeesList.addEmployee(newDetails);
+    }
 
-            // Returns a particular employee
-            @GetMapping("/api/v1/employee/{employeeId}")
-            public EmployeeInfo getEmployeeDetail(@PathVariable int employeeId){
-                return this.es.getEmployeeDetails(employeeId);
-            }
+    @PutMapping("/updateEmployeeRecord")
+    public EmployeeInfo updatedEmployee(@RequestBody EmployeeInfo ef){
+        return this.employeesList.updateInfo(ef);
+    }
 
-            @PostMapping("/api/v1/employee")
-            public EmployeeInfo addNewEmployee(@RequestBody EmployeeInfo newDetails){
-                return this.es.addEmployee(newDetails);
-            }
+    @DeleteMapping("/deleteEmployeeRecord/{employeeId}")
+    public ResponseEntity<HttpStatus> deleteRecord(@PathVariable Integer employeeId){
+        this.employeesList.deleteRecords(employeeId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
-            @PutMapping("/api/v1/employee")
-            public EmployeeInfo updatedEmployee(@RequestBody EmployeeInfo ef){
-                return this.es.updateInfo(ef);
-            }
-
-            @DeleteMapping("/api/v1/employee/{employeeId}")
-            public ResponseEntity<HttpStatus> deleteRecord(@PathVariable Integer employeeId){
-                this.es.deleteRecords(employeeId);
-                return new ResponseEntity<>(HttpStatus.OK);
-            }
-
+    
 }
